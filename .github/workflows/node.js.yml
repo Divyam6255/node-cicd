@@ -1,0 +1,26 @@
+name: Deploy Node.js App
+
+on:
+  push:
+    branches:
+      - master  # Trigger on push to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/ubuntu/myapp
+            git pull origin main
+            npm install
+            pm2 restart myapp || pm2 start index.js --name myapp
