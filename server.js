@@ -3,7 +3,7 @@ const app = express();
 
 // Define routes
 app.get('/', (req, res) => {
-  res.send('Hello, world! welcome to the CICD pipeline');
+  res.send('Hello, world! welcome to the CICD pipeline that create the deployment of node js app automatically');
 });
 
 // Ensure the app listens on the correct port
